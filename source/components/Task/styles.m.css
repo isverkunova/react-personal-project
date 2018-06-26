@@ -35,13 +35,15 @@
             width: 100%;
             border-color: transparent;
 
-            &:not([disabled]) {
+            &::not([disabled]) {
                 border-color: var(--paletteColor3);
             }
         }
     }
 
     & .actions {
+        display: flex;
+        
         & .setPriority,
         & .edit {
             margin-right: 20px;

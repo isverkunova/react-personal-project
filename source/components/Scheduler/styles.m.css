@@ -7,7 +7,7 @@
     -webkit-user-select: none;
 
     & main {
-        width: 100%;
+        width: 950px;
         height: 100%;
         padding: 50px 85px;
         background-color: var(--paletteColor4);
@@ -22,6 +22,7 @@
             & h1 {
                 font-size: 32px;
                 font-weight: 500;
+                font-family: Arial, sans-serif;
                 color: var(--paletteColor5);
             }
 
@@ -152,8 +153,10 @@
             }
 
             & .completeAllTasks {
+                font-family: Arial, sans-serif;
                 font-size: 20px;
-                color: var(--paletteColor7);
+                color: var(--paletteColor1);
+                padding: 0 14px;
             }
         }
     }

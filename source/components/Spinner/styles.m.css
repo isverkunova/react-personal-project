@@ -18,4 +18,5 @@
     right: 25px;
     margin: auto;
     animation: spinner 1s infinite linear;
+    z-index: 5;
 }

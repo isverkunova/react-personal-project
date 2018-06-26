@@ -6,9 +6,9 @@ import { withSvg } from 'instruments/withSvg';
 
 class Remove extends Component {
     render () {
-        const { hover, disabled, color1, color2, color3 } = this.props;
+        const { hover, disabled, color1, color3 } = this.props;
 
-        const fill = disabled ? color3 : hover ? color1 : color2;
+        const fill = disabled ? color1 : hover ? color1 : color3;
 
         return (
             <g>

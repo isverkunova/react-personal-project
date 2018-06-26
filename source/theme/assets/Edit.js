@@ -6,9 +6,9 @@ import { withSvg } from 'instruments/withSvg';
 
 class Edit extends Component {
     render () {
-        const { hover, checked, color1, color2 } = this.props;
+        const { hover, checked, color1, color3 } = this.props;
 
-        const fill = checked || hover ? color1 : color2;
+        const fill = checked || hover ? color1 : color3;
 
         return (
             <g>
