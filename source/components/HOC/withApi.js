@@ -95,6 +95,41 @@ const withApi = (Enhanceable) => {
             this._setSpinningState(false);
         }
 
+        _completeTask = async (tasksToEdit) => {
+            this._setSpinningState(true);
+            console.log('→ taskToEdit', tasksToEdit);
+
+            const response = await fetch(api, {
+                method:  'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization:  token,
+                },
+                body: JSON.stringify(tasksToEdit),
+            });
+
+            const {
+                data: [updatedTaskFromResponse],
+            } = await response.json();
+
+            this.setState(({ tasks }) => {
+                const indexToReplace = tasks.indexOf(
+                    tasks.find((task) => task.id === updatedTaskFromResponse.id),
+                );
+
+                const newTasks = [
+                    ...tasks.filter((task) => task.id !== updatedTaskFromResponse.id)
+                ];
+
+                newTasks.splice(indexToReplace, 0, updatedTaskFromResponse);
+
+                this._sorting(newTasks);
+            });
+
+            this._setSpinningState(false);
+        }
+
+
         _fetchTasks = async () => {
             this._setSpinningState(true);
 
@@ -124,6 +159,8 @@ const withApi = (Enhanceable) => {
             this.setState({
                 tasks: [...priorityTasks, ...defaultTasks, ...completedPriorityTasks, ...completedTasks],
             });
+
+            // console.log(this.state.tasks);
         }
 
         _search = (event) => {
@@ -137,11 +174,15 @@ const withApi = (Enhanceable) => {
         _completeAllTasks = () => {
             const { tasks } = this.state;
 
-            const tasksToComplete = tasks.map((task) => {
-                return this.setState({ ...task, completed: true });
-            });
+            const setCompT = tasks.map((task) => ({ ...task, completed: !this._setCompletion() }));
 
-            this._editTask(tasksToComplete);
+            this._completeTask(setCompT);
+        }
+
+        _setCompletion = () => {
+            const { tasks } = this.state;
+
+            return tasks.every(({ completed }) => completed); // false
         }
 
         _getValue = (event) => {
