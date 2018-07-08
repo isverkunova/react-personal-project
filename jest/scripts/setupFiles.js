@@ -17,3 +17,10 @@ import { LocalStorage } from './mocks/localStorage';
 global.localStorage = new LocalStorage();
 
 global.__ENV__ = global.__PROD__ = process.env.NODE_ENV;
+
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
+const { document } = (new JSDOM(`<html><head></head><body></body></html>`)).window;
+
+console.log(document.nodeName); // #document

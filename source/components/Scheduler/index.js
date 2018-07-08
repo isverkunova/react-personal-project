@@ -1,9 +1,11 @@
 // Core
 import React, { Component } from 'react';
+import FlipMove from 'react-flip-move';
 import { array, bool, func, string } from 'prop-types';
 
 // Components
 import { withApi } from 'components/HOC/withApi';
+import Catcher from 'components/Catcher';
 import Task from 'components/Task';
 import Spinner from 'components/Spinner';
 
@@ -11,8 +13,7 @@ import Spinner from 'components/Spinner';
 import Styles from './styles.m.css';
 import Checkbox from 'theme/assets/Checkbox';
 
-@withApi
-export default class Scheduler extends Component {
+export class Scheduler extends Component {
     static propTypes = {
         _completeAllTasks: func,
         _editTask:         func,
@@ -32,15 +33,15 @@ export default class Scheduler extends Component {
         const { foundTask, message, tasks, spinning, _completeAllTasks, _editTask, _getValue, _handleFormSubmit, _removeTask, _search, _setPriority, _submitOnEnter } = this.props;
 
         const tasksJSX = tasks.filter(({ message: taskMessage }) => taskMessage.includes(foundTask.toLowerCase())).map((task) => {
-
             return (
-                <Task
-                    key = { task.id }
-                    { ...task }
-                    _editTask = { _editTask }
-                    _removeTask = { _removeTask }
-                    _setPriority = { _setPriority }
-                />
+                <Catcher key = { task.id }>
+                    <Task
+                        { ...task }
+                        _editTask = { _editTask }
+                        _removeTask = { _removeTask }
+                        _setPriority = { _setPriority }
+                    />
+                </Catcher>
             );
         });
 
@@ -71,7 +72,11 @@ export default class Scheduler extends Component {
                         </form>
                         <div>
                             <ul>
-                                { tasksJSX }
+                                <FlipMove
+                                    duration = { 400 }
+                                    easing = 'ease-in-out'>
+                                    { tasksJSX }
+                                </FlipMove>
                             </ul>
                         </div>
                     </section>
@@ -88,3 +93,5 @@ export default class Scheduler extends Component {
         );
     }
 }
+
+export default withApi(Scheduler);

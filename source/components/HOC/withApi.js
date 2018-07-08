@@ -63,7 +63,6 @@ const withApi = (Enhanceable) => {
 
         _editTask = async (taskToEdit) => {
             this._setSpinningState(true);
-            console.log('→ taskToEdit', taskToEdit);
 
             const response = await fetch(api, {
                 method:  'PUT',
@@ -97,7 +96,6 @@ const withApi = (Enhanceable) => {
 
         _completeTask = async (tasksToEdit) => {
             this._setSpinningState(true);
-            console.log('→ taskToEdit', tasksToEdit);
 
             const response = await fetch(api, {
                 method:  'PUT',
@@ -159,8 +157,6 @@ const withApi = (Enhanceable) => {
             this.setState({
                 tasks: [...priorityTasks, ...defaultTasks, ...completedPriorityTasks, ...completedTasks],
             });
-
-            // console.log(this.state.tasks);
         }
 
         _search = (event) => {
@@ -176,13 +172,17 @@ const withApi = (Enhanceable) => {
 
             const setCompT = tasks.map((task) => ({ ...task, completed: !this._setCompletion() }));
 
+            this.setState({
+                tasks: setCompT,
+            });
+
             this._completeTask(setCompT);
         }
 
         _setCompletion = () => {
             const { tasks } = this.state;
 
-            return tasks.every(({ completed }) => completed); // false
+            return tasks.every(({ completed }) => completed);
         }
 
         _getValue = (event) => {

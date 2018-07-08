@@ -22,10 +22,6 @@ export default class Task extends Component {
                 message:   string.isRequired,
             })
         ),
-        // completed:   bool.isRequired,
-        // favorite:    bool.isRequired,
-        // id:          string.isRequired,
-        // message:     string.isRequired,
     };
 
     state = {
@@ -86,12 +82,19 @@ export default class Task extends Component {
         const { message } = this.state;
 
         _editTask({ id, message, completed, favorite });
-        this._cancelEditing();
+
+        this.setState({
+            isEditing: false,
+        });
     };
 
     _cancelEditing = () => {
+
+        const { message } = this.props;
+
         this.setState(() => ({
             isEditing: false,
+            message,
         }));
     };
 
