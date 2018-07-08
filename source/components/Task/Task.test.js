@@ -22,7 +22,6 @@ const result = mount(<Task { ...props } />);
 describe('Task component:', () => {
     describe('should have valid markup elements', () => {
         test('core JSX', () => {
-            console.log(document.createElement);
             expect(result.find('li.task').length).toBe(1);
             expect(result.find('div.content').length).toBe(1);
             expect(result.find('div.actions').length).toBe(1);
