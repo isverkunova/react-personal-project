@@ -18,9 +18,8 @@ global.localStorage = new LocalStorage();
 
 global.__ENV__ = global.__PROD__ = process.env.NODE_ENV;
 
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const spinner = document.createElement('div');
 
-const { document } = (new JSDOM(`<html><head></head><body></body></html>`)).window;
+spinner.setAttribute('id', 'spinner');
 
-console.log(document.nodeName); // #document
+document.body.appendChild(spinner);
